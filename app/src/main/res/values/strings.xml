@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Actions Sonar Cloud</string>
+    <string name="home_title">GitHub Actions</string>
+    <string name="home_subtitle">Implementação de pipeline\ncom GitHub Actions\ne Sonar Cloud.</string>
+    <string name="home_mode_dark">Dark Mode</string>
+    <string name="home_mode_light">Light Mode</string>
+</resources>

@@ -1,0 +1,111 @@
+name: Build CD
+
+on:
+  workflow_dispatch:
+
+#  push:
+#    branches: [ "staging" ]
+#    tags:
+#      - 'v*.*.*'
+
+  pull_request:
+    branches: [ "staging" ]
+    tags:
+      - 'v*.*.*'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    name: Build CD (steps)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          cache: gradle
+
+      - name: APK - gradlew
+        run: bash ./gradlew assembleRelease --stacktrace
+
+      - name: APK - Sign Android Release
+        id: id_sign_apk
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: APK - Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-artifacts.zip
+          path: ${{steps.id_sign_apk.outputs.signedReleaseFile}}
+
+      - name: AAB - gradlew
+        run: bash ./gradlew bundleRelease --stacktrace
+
+      - name: AAB - Sign Android Release
+        id: id_sign_aab
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: AAB - Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-artifacts.zip
+          path: ${{steps.id_sign_aab.outputs.signedReleaseFile}}
+
+      - name: Generate TAG Release
+        id: id_tag_release
+        run: |
+          echo "tag_release=v.${{ github.run_number }}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        id: id_create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.id_tag_release.outputs.tag_release }}
+          release_name: ${{ steps.id_tag_release.outputs.tag_release }}
+          #
+          # Crie o arquivo CHANGELOG.md no diretorio raiz do projeto
+          # para utilizar o atributo body_path.
+          #
+          # body_path: ${{ github.workspace }}/CHANGELOG.md
+          generate_release_notes: true
+          prerelease: false
+          draft: false
+
+      - name: APK - Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.id_create_release.outputs.upload_url }}
+          asset_path: ${{steps.id_sign_apk.outputs.signedReleaseFile}}
+          asset_name: app-release-signed-${{ steps.id_tag_release.outputs.tag_release }}.apk
+          asset_content_type: application/zip
+
+      - name: AAB - Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.id_create_release.outputs.upload_url }}
+          asset_path: ${{steps.id_sign_aab.outputs.signedReleaseFile}}
+          asset_name: app-release-signed-${{ steps.id_tag_release.outputs.tag_release }}.aab
+          asset_content_type: application/zip
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--===========================================================================================================================================
+        ATENÇÃO
+        .
+        Se utilizar icone do diretorio @drawable na propriedade "android:windowSplashScreenAnimatedIco"
+        lembre de utilizar um icone com espaço ao redor, pois até o momento, a API splashscreen demanda este espaço extra ao redor do icone.
+        Se não houver espaço ao redor do icone, o icone terá suas extremidades ocultadas.
+        .
+        Se utilizar icone do diretorio @mipmap na propriedade "android:windowSplashScreenAnimatedIco"
+        a cor do background não será exibida na proprieade "android:windowSplashScreenIconBackgroundColor"
+    ===========================================================================================================================================-->
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:windowSplashScreenBackground">@color/colorSplashBackground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Home</item>
+        <!--A partir da API 31-->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_github_text</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/colorSplashBackground</item>
+    </style>
+</resources>

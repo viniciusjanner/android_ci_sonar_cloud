@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--Color Primary-->
+        <item name="colorPrimary">@color/colorPrimary</item><!--Toolbar-->
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item><!--StatusBar-->
+        <item name="colorOnPrimary">@color/colorAccent</item><!--Toolbar Text-->
+        <!--Color Secondary-->
+        <item name="colorSecondary">@color/colorPrimary</item><!--FloatActionButton-->
+        <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnSecondary">@color/colorWhite</item><!--Icon FloatActionButton-->
+        <!--Color Accent-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--android-->
+        <item name="android:breakStrategy" tools:targetApi="m">simple</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorStatusBarLight</item>
+        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
+        <!--app-->
+        <item name="tint">@color/colorBlack</item><!--Icon ImageView-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--Anim-->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen" />
+
+    <style name="Theme.Home" parent="Base.Theme">
+
+    </style>
+
+</resources>

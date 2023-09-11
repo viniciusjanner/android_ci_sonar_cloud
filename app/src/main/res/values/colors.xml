@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Colors App-->
+    <color name="colorPrimary">@color/colorBlack</color>
+    <color name="colorPrimaryDark">#3E3E3E</color>
+    <color name="colorAccent">#797979</color>
+
+    <!--Colors Components-->
+    <color name="colorTextLight">#B6B6B6</color>
+    <color name="colorTextDark">#000000</color>
+    <color name="colorStatusBarDark">#1E1F22</color>
+    <color name="colorStatusBarLight">#373737</color>
+
+    <!--Color Screen Splash-->
+    <color name="colorSplashBackground">#000000</color>
+
+    <!--Color Switch-->
+    <color name="colorSwitchThumbOn">@color/colorPrimaryDark</color>
+    <color name="colorSwitchThumbOff">@color/colorWhite</color>
+    <color name="colorSwitchTrackOn">@color/colorAccent</color>
+    <color name="colorSwitchTrackOff">@color/colorTextLight</color>
+
+    <!--Others Colors-->
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+</resources>

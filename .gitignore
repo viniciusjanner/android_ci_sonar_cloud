@@ -1,0 +1,25 @@
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+/app/debug
+/app/release
+*.apk
+*.aab
+
+# IntelliJ
+*.iml
+.idea/
+
+# Keystore files
+*.jks
+*.jks.base64.txt
+*.keystore
+*.pepk
