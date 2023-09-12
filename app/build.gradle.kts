@@ -14,6 +14,8 @@ android {
         versionCode = Config.versionCode
         versionName = Config.versionName
 
+        vectorDrawables.useSupportLibrary = true
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled = true
