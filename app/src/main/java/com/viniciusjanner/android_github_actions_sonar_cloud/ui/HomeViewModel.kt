@@ -7,7 +7,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.DataStoreManager
 import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.ThemeMode
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,7 @@ class HomeViewModel(
 
     fun setTheme(themeMode: ThemeMode) {
         val isDarkMode = (themeMode == ThemeMode.DARK)
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch {
             dataStoreManager.setTheme(isDarkMode)
         }
     }
