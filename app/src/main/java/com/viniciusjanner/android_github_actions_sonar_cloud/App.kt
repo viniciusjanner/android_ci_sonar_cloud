@@ -18,6 +18,16 @@ class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
+        initThemeApp()
+    }
+
+    //
+    // Se houver theme armazenado, o app já iniciará com o theme armazenado.
+    //
+    // Se não houver, o app iniciará com o theme default.
+    //
+    private fun initThemeApp() {
         dataStoreManager = DataStoreManager(this@App)
 
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
