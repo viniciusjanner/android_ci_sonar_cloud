@@ -40,6 +40,7 @@ object Dependencies {
         }
 
         object Unit {
+
             object Androidx {
                 const val archCore     = "androidx.arch.core:core-testing:2.2.0" // testes com LiveData
 
