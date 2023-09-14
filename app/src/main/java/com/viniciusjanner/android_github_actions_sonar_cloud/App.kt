@@ -28,7 +28,10 @@ class App : MultiDexApplication() {
         // Tratamento de possíveis exceções.
         //
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e(App::class.java.simpleName, "coroutineExceptionHandler : throwable = ${throwable.message}")
+            val tagLog = App::class.java.simpleName
+            val messageLog = "coroutineExceptionHandler : throwable = ${throwable.message}"
+            Log.e(tagLog, messageLog)
+
             throwable.printStackTrace()
         }
 
