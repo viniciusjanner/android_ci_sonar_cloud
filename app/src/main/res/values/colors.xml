@@ -8,8 +8,8 @@
     <!--Colors Components-->
     <color name="colorTextLight">#B6B6B6</color>
     <color name="colorTextDark">#000000</color>
-    <color name="colorStatusBarDark">#1E1F22</color>
     <color name="colorStatusBarLight">#373737</color>
+    <color name="colorStatusBarDark">#373737</color>
 
     <!--Color Screen Splash-->
     <color name="colorSplashBackground">#000000</color>

@@ -3,7 +3,7 @@ package com.viniciusjanner.android_github_actions_sonar_cloud
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
-import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.DataStoreManager
+import com.viniciusjanner.android_github_actions_sonar_cloud.datastore.DataStoreManagerImpl
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,15 +13,25 @@ import kotlin.coroutines.CoroutineContext
 class App : MultiDexApplication() {
 
     companion object {
-        lateinit var dataStoreManager: DataStoreManager
+        lateinit var dataStoreManager: DataStoreManagerImpl
     }
 
     override fun onCreate() {
         super.onCreate()
-        dataStoreManager = DataStoreManager(this@App)
+
+        initThemeApp()
+    }
+
+    //
+    // Se houver theme armazenado, o app já iniciará com o theme armazenado.
+    //
+    // Se não houver, o app iniciará com o theme default.
+    //
+    private fun initThemeApp() {
+        dataStoreManager = DataStoreManagerImpl(this@App)
 
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e("App", "coroutineExceptionHandler : throwable = ${throwable.message}")
+            Log.e(App::class.java.simpleName, "coroutineExceptionHandler : throwable = ${throwable.message}")
             throwable.printStackTrace()
         }
 

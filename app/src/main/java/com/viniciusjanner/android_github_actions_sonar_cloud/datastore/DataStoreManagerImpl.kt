@@ -1,4 +1,4 @@
-package com.viniciusjanner.android_github_actions_sonar_cloud.prefs
+package com.viniciusjanner.android_github_actions_sonar_cloud.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-class DataStoreManager(context: Context) {
+class DataStoreManagerImpl(context: Context) : DataStoreManager {
 
     private val dataStore = context.dataStore
 
@@ -23,13 +23,13 @@ class DataStoreManager(context: Context) {
         val darkModeKey: Preferences.Key<Boolean> = booleanPreferencesKey("DARK_MODE_KEY")
     }
 
-    suspend fun setTheme(isDarkMode: Boolean) {
+    override suspend fun setTheme(isDarkMode: Boolean) {
         dataStore.edit { mutablePrefs ->
             mutablePrefs[darkModeKey] = isDarkMode
         }
     }
 
-    fun getTheme(): Flow<Boolean> {
+    override suspend fun getTheme(): Flow<Boolean> {
         return dataStore.data
             .catch {
                 if (it is IOException) {
