@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.viniciusjanner.android_github_actions_sonar_cloud.App
 import com.viniciusjanner.android_github_actions_sonar_cloud.R
 import com.viniciusjanner.android_github_actions_sonar_cloud.databinding.ActivityHomeBinding
-import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.ThemeMode
 import com.viniciusjanner.android_github_actions_sonar_cloud.util.AppConstants
+import com.viniciusjanner.android_github_actions_sonar_cloud.util.ThemeMode
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
@@ -53,20 +54,20 @@ class HomeActivity : AppCompatActivity() {
 
     @Suppress("MaxLineLength")
     private fun initInstances() {
-        val dataStoreManager = App.dataStoreManager
-        viewModel = ViewModelProvider(this, HomeViewModelFactory(this.application, dataStoreManager))[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(this, HomeViewModelFactory(App.dataStoreManager, Dispatchers.Main))[HomeViewModel::class.java]
+        viewModel.fetchTheme()
     }
 
     private fun initObservers() {
         viewModel.themeLiveData.observe(this@HomeActivity) { themeMode ->
-            val isCheck = (themeMode == ThemeMode.DARK)
+            val isCheck: Boolean = (themeMode == ThemeMode.DARK)
 
             binding.switchTheme.apply {
                 isChecked = isCheck
                 text = getString(if (isCheck) R.string.home_mode_dark else R.string.home_mode_light)
             }
 
-            val nightMode = if (isCheck) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            val nightMode: Int = if (isCheck) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
             AppCompatDelegate.setDefaultNightMode(nightMode)
             delegate.applyDayNight()
         }
@@ -74,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initListeners() {
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            val themeMode = if (isChecked) ThemeMode.DARK else ThemeMode.LIGHT
+            val themeMode: ThemeMode = if (isChecked) ThemeMode.DARK else ThemeMode.LIGHT
             viewModel.setTheme(themeMode)
         }
     }
