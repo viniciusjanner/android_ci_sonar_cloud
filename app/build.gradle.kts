@@ -48,32 +48,48 @@ android {
 }
 
 dependencies {
-    // androidx
-    implementation(Dependencies.Androidx.appCompat)
+    // ----------------------------------------------------------------------------------------------
+    // Develop
+    // ----------------------------------------------------------------------------------------------
+    // Androidx
+    implementation(Dependencies.Develop.Androidx.appCompat)
+    implementation(Dependencies.Develop.Androidx.constraintLayout)
+    implementation(Dependencies.Develop.Androidx.core)
+    implementation(Dependencies.Develop.Androidx.coerSplashScreen)
+    implementation(Dependencies.Develop.Androidx.dataStorePrefs)
+    implementation(Dependencies.Develop.Androidx.lifecycleRunTime)
+    implementation(Dependencies.Develop.Androidx.lifecycleLiveData)
+    implementation(Dependencies.Develop.Androidx.lifecycleViewModel)
+    implementation(Dependencies.Develop.Androidx.multidex)
+    // Google
+    implementation(Dependencies.Develop.Google.material)
+    // JetBrains
+    implementation(Dependencies.Develop.JetBrains.coroutinesAndroid)
+    implementation(Dependencies.Develop.JetBrains.coroutinesCore)
 
-    implementation(Dependencies.Androidx.constraintLayout)
+    // ----------------------------------------------------------------------------------------------
+    // Test > Instr
+    // ----------------------------------------------------------------------------------------------
+    // Androidx
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testEspresso)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testJunit)
 
-    implementation(Dependencies.Androidx.core)
-    implementation(Dependencies.Androidx.coerSplashScreen)
-
-    implementation(Dependencies.Androidx.dataStorePrefs)
-
-    implementation(Dependencies.Androidx.lifecycleRunTime)
-    implementation(Dependencies.Androidx.lifecycleLiveData)
-    implementation(Dependencies.Androidx.lifecycleViewModel)
-
-    implementation(Dependencies.Androidx.multidex)
-
-    implementation(Dependencies.JetBrains.coroutinesAndroid)
-    implementation(Dependencies.JetBrains.coroutinesCore)
-
-    // google
-    implementation(Dependencies.Google.material)
-
-    // androidTest
-    androidTestImplementation(Dependencies.Androidx.testEspresso)
-    androidTestImplementation(Dependencies.Androidx.testJunit)
-
-    // test
-    testImplementation(Dependencies.Junit.junit)
+    // ----------------------------------------------------------------------------------------------
+    // Test > Unit
+    // ----------------------------------------------------------------------------------------------
+    // Androidx
+    testImplementation(Dependencies.Test.Unit.Androidx.archCore)
+    testImplementation(Dependencies.Test.Unit.Androidx.testCore)
+    testImplementation(Dependencies.Test.Unit.Androidx.testExtJunit)
+    testImplementation(Dependencies.Test.Unit.Androidx.testExtTruth)
+    testImplementation(Dependencies.Test.Unit.Androidx.testRules)
+    testImplementation(Dependencies.Test.Unit.Androidx.testRunner)
+    // JetBrains
+    testImplementation(Dependencies.Test.Unit.JetBrains.kotlinxCoroutines)
+    // Junit
+    testImplementation(Dependencies.Test.Unit.Junit.junit)
+    // Others
+    testImplementation(Dependencies.Test.Unit.Others.mockito)
+    testImplementation(Dependencies.Test.Unit.Others.mockk)
+    testImplementation(Dependencies.Test.Unit.Others.nhaarmanMockito)
 }
