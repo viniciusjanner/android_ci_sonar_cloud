@@ -14,7 +14,7 @@ import java.io.IOException
 
 class DataStoreManagerImpl(context: Context) : DataStoreManager {
 
-    private val dataStore = context.dataStore
+    private var dataStore = context.dataStore
 
     companion object {
 
