@@ -1,33 +1,36 @@
 package com.viniciusjanner.android_github_actions_sonar_cloud.ui
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.DataStoreManager
-import com.viniciusjanner.android_github_actions_sonar_cloud.prefs.ThemeMode
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
+import com.viniciusjanner.android_github_actions_sonar_cloud.datastore.DataStoreManager
+import com.viniciusjanner.android_github_actions_sonar_cloud.util.ThemeMode
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class HomeViewModel(
-    application: Application,
     private val dataStoreManager: DataStoreManager,
-) : AndroidViewModel(application) {
+    private val coroutineContext: CoroutineContext,
+) : ViewModel() {
 
-    val themeLiveData: LiveData<ThemeMode> = getTheme()
+    private val _themeLiveData = MutableLiveData<ThemeMode>()
+    val themeLiveData: LiveData<ThemeMode> = _themeLiveData
 
-    private fun getTheme(): LiveData<ThemeMode> = dataStoreManager.getTheme()
-        .map { isDarkMode ->
-            if (isDarkMode) ThemeMode.DARK else ThemeMode.LIGHT
+    fun fetchTheme() {
+        viewModelScope.launch(coroutineContext) {
+            dataStoreManager.getTheme().collect { isDarkMode ->
+                val themeMode: ThemeMode = if (isDarkMode) ThemeMode.DARK else ThemeMode.LIGHT
+                _themeLiveData.postValue(themeMode)
+            }
         }
-        .asLiveData()
+    }
 
     fun setTheme(themeMode: ThemeMode) {
         val isDarkMode = (themeMode == ThemeMode.DARK)
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(coroutineContext) {
             dataStoreManager.setTheme(isDarkMode)
+            _themeLiveData.postValue(themeMode)
         }
     }
 }
