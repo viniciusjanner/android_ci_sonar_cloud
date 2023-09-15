@@ -9,6 +9,11 @@ sonar {
         property("sonar.projectKey", "viniciusjanner_android_github_actions_sonar_cloud")
         property("sonar.organization", "viniciusjanner")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.exclusions", "*/app/build.gradle.kts")
+
+        val exclusionList = listOf(
+            "app/build.gradle.kts",
+            "src/main/res/layout/*.*",
+        )
+        property("sonar.exclusions", exclusionList)
     }
 }
