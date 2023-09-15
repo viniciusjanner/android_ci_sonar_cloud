@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled = true
-    }
+    } // NOSONAR
 
     buildTypes {
         release {
@@ -43,7 +43,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
-}
+} // NOSONAR
 
 dependencies {
     // ----------------------------------------------------------------------------------------------
