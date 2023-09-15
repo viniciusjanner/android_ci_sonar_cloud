@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DataStoreManager {
 
-    suspend fun getTheme(): Flow<Boolean>
+    fun getTheme(): Flow<Boolean>
 
     suspend fun setTheme(isDarkMode: Boolean)
 }

@@ -26,7 +26,7 @@ class DataStoreManagerImpl(
         val darkModeKey: Preferences.Key<Boolean> = booleanPreferencesKey(PrefsKeys.KEY_DARK_MODE)
     }
 
-    override suspend fun getTheme(): Flow<Boolean> {
+    override fun getTheme(): Flow<Boolean> {
         return dataStore.data
             .catch {
                 if (it is IOException) {
