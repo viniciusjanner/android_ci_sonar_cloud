@@ -11,7 +11,6 @@ sonar {
         property("sonar.host.url", "https://sonarcloud.io")
 
         val exclusionList = listOf(
-            "app/build.gradle.kts",
             "src/main/res/layout/*.*",
         )
         property("sonar.exclusions", exclusionList)
