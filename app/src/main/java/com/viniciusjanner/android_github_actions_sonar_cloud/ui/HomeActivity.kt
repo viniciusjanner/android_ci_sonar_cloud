@@ -24,18 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Splash Screen
-        runBlocking {
-            when (Build.VERSION.SDK_INT) {
-                in AppConstants.sdkMin..AppConstants.sdkMax -> {
-                    delay(AppConstants.delay)
-                    setTheme(R.style.Theme_Home)
-                }
-                else -> {
-                    installSplashScreen()
-                    delay(AppConstants.delay)
-                }
-            }
-        }
+        initSplahsScreen()
 
         // Home Screen
         super.onCreate(savedInstanceState)
@@ -50,6 +39,21 @@ class HomeActivity : AppCompatActivity() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    private fun initSplahsScreen() {
+        runBlocking {
+            when (Build.VERSION.SDK_INT) {
+                in AppConstants.sdkMin..AppConstants.sdkMax -> {
+                    delay(AppConstants.delay)
+                    setTheme(R.style.Theme_Home)
+                }
+                else -> {
+                    installSplashScreen()
+                    delay(AppConstants.delay)
+                }
+            }
+        }
     }
 
     @Suppress("MaxLineLength")
