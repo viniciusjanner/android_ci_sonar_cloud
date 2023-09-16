@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import com.viniciusjanner.android_github_actions_sonar_cloud.App
 import com.viniciusjanner.android_github_actions_sonar_cloud.R
 import com.viniciusjanner.android_github_actions_sonar_cloud.databinding.ActivityHomeBinding
+import com.viniciusjanner.android_github_actions_sonar_cloud.datastore.DataStoreManagerImpl
 import com.viniciusjanner.android_github_actions_sonar_cloud.util.AppConstants
 import com.viniciusjanner.android_github_actions_sonar_cloud.util.ThemeMode
 import kotlinx.coroutines.Dispatchers
@@ -24,18 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Splash Screen
-        runBlocking {
-            when (Build.VERSION.SDK_INT) {
-                in AppConstants.sdkMin..AppConstants.sdkMax -> {
-                    delay(AppConstants.delay)
-                    setTheme(R.style.Theme_Home)
-                }
-                else -> {
-                    installSplashScreen()
-                    delay(AppConstants.delay)
-                }
-            }
-        }
+        initSplahsScreen()
 
         // Home Screen
         super.onCreate(savedInstanceState)
@@ -52,9 +41,31 @@ class HomeActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    private fun initSplahsScreen() {
+        runBlocking {
+            when (Build.VERSION.SDK_INT) {
+                in AppConstants.sdkMin..AppConstants.sdkMax -> {
+                    delay(AppConstants.delay)
+                    setTheme(R.style.Theme_Home)
+                }
+                else -> {
+                    installSplashScreen()
+                    delay(AppConstants.delay)
+                }
+            }
+        }
+    }
+
     @Suppress("MaxLineLength")
     private fun initInstances() {
-        viewModel = ViewModelProvider(this, HomeViewModelFactory(App.dataStoreManager, Dispatchers.Main))[HomeViewModel::class.java]
+        // Instanciar ViewModel
+        val owner = this@HomeActivity
+        val dataStoreManager = DataStoreManagerImpl(this@HomeActivity)
+        val coroutineContext = Dispatchers.Main
+        val viewModelClass = HomeViewModel::class.java
+        viewModel = ViewModelProvider(owner, HomeViewModelFactory(dataStoreManager, coroutineContext))[viewModelClass]
+
+        // Buscar theme armazenado
         viewModel.fetchTheme()
     }
 
