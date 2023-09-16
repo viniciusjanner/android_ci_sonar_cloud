@@ -12,10 +12,6 @@ import kotlin.coroutines.CoroutineContext
 
 class App : MultiDexApplication() {
 
-    companion object {
-        lateinit var dataStoreManager: DataStoreManagerImpl
-    }
-
     override fun onCreate() {
         super.onCreate()
 
@@ -28,25 +24,31 @@ class App : MultiDexApplication() {
     // Se não houver, o app iniciará com o theme default.
     //
     private fun initThemeApp() {
-        dataStoreManager = DataStoreManagerImpl(this@App)
-
+        //
+        // Tratamento de possíveis exceções.
+        //
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e(App::class.java.simpleName, "coroutineExceptionHandler : throwable = ${throwable.message}")
+            val tagLog = App::class.java.simpleName
+            val messageLog = "coroutineExceptionHandler : throwable = ${throwable.message}"
+            Log.e(tagLog, messageLog)
+
             throwable.printStackTrace()
         }
 
-        val coroutineContext: CoroutineContext = Dispatchers.Default + coroutineExceptionHandler
+        val coroutineContext: CoroutineContext = (Dispatchers.Default + coroutineExceptionHandler)
 
         CoroutineScope(coroutineContext).launch {
-            dataStoreManager.getTheme().collect {
-                AppCompatDelegate.setDefaultNightMode(
-                    if (it) {
-                        AppCompatDelegate.MODE_NIGHT_YES
-                    } else {
-                        AppCompatDelegate.MODE_NIGHT_NO
-                    },
-                )
-            }
+            DataStoreManagerImpl(this@App)
+                .getTheme()
+                .collect {
+                    AppCompatDelegate.setDefaultNightMode(
+                        if (it) {
+                            AppCompatDelegate.MODE_NIGHT_YES
+                        } else {
+                            AppCompatDelegate.MODE_NIGHT_NO
+                        },
+                    )
+                }
         }
     }
 }
