@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import com.viniciusjanner.android_github_actions_sonar_cloud.R
 import com.viniciusjanner.android_github_actions_sonar_cloud.util.EspressoMatchers
 import kotlinx.coroutines.runBlocking
@@ -22,10 +22,11 @@ import org.junit.runner.RunWith
 class HomeActivityInstrumentedTest {
 
     @get:Rule
-    var activityRule: ActivityTestRule<HomeActivity> = ActivityTestRule(HomeActivity::class.java)
+    var activityRule: ActivityScenarioRule<HomeActivity> = ActivityScenarioRule(HomeActivity::class.java)
 
     @Before
-    fun setUp() {}
+    fun setUp() {
+    }
 
     @Test
     fun shouldDisplayToolbar_WithCorrectText(): Unit = runBlocking {
