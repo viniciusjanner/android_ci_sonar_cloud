@@ -53,7 +53,7 @@ jobs:
           name: report_unit_test.html
           path: app/build/reports/tests/testReleaseUnitTest/
 
-      - name: Run Espresso Test (AVD Nexus 5X - API 23)
+      - name: Run Espresso Test (AVD)
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 23
