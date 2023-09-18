@@ -34,8 +34,13 @@ object Dependencies {
         object Instr {
 
             object Androidx {
-                const val testEspresso = "androidx.test.espresso:espresso-core:3.5.1"
-                const val testJunit    = "androidx.test.ext:junit:1.1.5"
+                const val testCore            = "androidx.test:core:1.5.0"
+                const val testEspressoCore    = "androidx.test.espresso:espresso-core:3.5.1"
+                const val testEspressoContrib = "androidx.test.espresso:espresso-contrib:3.5.1"
+                const val testExtJunit        = "androidx.test.ext:junit:1.1.5"
+                const val testExtTruth        = "androidx.test.ext:truth:1.5.0"
+                const val testRules           = "androidx.test:rules:1.5.0"
+                const val testRunner          = "androidx.test:runner:1.5.2"
             }
         }
 
