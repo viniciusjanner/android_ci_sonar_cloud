@@ -69,8 +69,13 @@ dependencies {
     // Test > Instr
     // ----------------------------------------------------------------------------------------------
     // Androidx
-    androidTestImplementation(Dependencies.Test.Instr.Androidx.testEspresso)
-    androidTestImplementation(Dependencies.Test.Instr.Androidx.testJunit)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testCore)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testEspressoCore)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testEspressoContrib)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testExtJunit)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testExtTruth)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testRules)
+    androidTestImplementation(Dependencies.Test.Instr.Androidx.testRunner)
 
     // ----------------------------------------------------------------------------------------------
     // Test > Unit
