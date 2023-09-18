@@ -53,20 +53,20 @@ jobs:
           name: report_unit_test.html
           path: app/build/reports/tests/testReleaseUnitTest/
 
-#      - name: Run Espresso Test (AVD Nexus 5X - API 21)
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          api-level: 21
-#          arch: x86_64
-#          target: google_apis
-#          # Opcional
-#          # profile: Nexus 5X
-#          # force-avd-creation: false
-#          # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-#          # emulator-build: 7425822 #6110076
-#          # End Opcional
-#          script: ./gradlew connectedCheck --stacktrace
-#
+      - name: Run Espresso Test (AVD Nexus 5X - API 23)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 23
+          arch: x86 #x86_64
+          target: default #google_apis
+          # Opcional
+          profile: Nexus 6 #5X
+          # force-avd-creation: false
+          # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          # emulator-build: 7425822 #6110076
+          # End Opcional
+          script: ./gradlew connectedCheck --stacktrace
+
 #      - name: Upload Instrumented Test Report
 #        uses: actions/upload-artifact@v2
 #        with:
